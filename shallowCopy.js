@@ -1,60 +1,48 @@
-// const employee = {
-//   name: "harish",
-//   eID: "MP05S21",
-//   profile: {
-//     role: "BDM",
-//     DOJ: "05-06-2022",
-//     Location: "Kannur",
-//   },
-// };
+// shallow copy revise
 
-// //--> shallow copy using spread operartor  <--//
-// //const employeeShallow = { ...employee };
-// // console.log("employee", employee);
-// // console.log("employeeShallow", employeeShallow);
-// // employeeShallow.profile.DOJ = "08-06-2022";
-// // console.log("employee", employee);
-// // console.log("employeeShallow", employeeShallow);
+let emp1={
+  name:'sathish',age:27,
+  address:{
+    houseName:'abc nivas',
+    panchayat:'xyz',
+    pincode:637728
+  }
+} // created an object with nested properties
 
-// //--> shallow copy using Object.assign() method  <--//
-// const employeeShallow2 = Object.assign({}, employee);
-// employeeShallow2.profile.DOJ = "08-06-2022";
-// console.log("employee", employee);
-// console.log("employeeShallow2", employeeShallow2);
+// emp2=emp1;  // simply copied emp1 to emp2 to create a new object
+// emp2.age=33;  // now we change the value of age property of emp2
+// console.log("emp2->",emp2); // consoling emp2
+// console.log("emp1->",emp1); // here is the issue.. check what is the printed.
 
-// const employee1 = {
-//   id: "RE321",
-//   name: "Patrick",
-//   department: "Sales",
-//   work_type: "hybrid",
-//   contact: {
-//     email: "patrickRE@yahoo.com",
-//     phone: "1987654321",
-//     address: {
-//       House: "14/9, Jose Rose",
-//       city: "New York",
-//       State: "NY",
-//       Zip: 15850,
-//     },
-//   },
-// };
+// The issue is bcz when we copy an object from another directly, its reference is stored in the second object.
+// So when we copy and change the values in any one object, since both objects refer the same reference, update 
+// is happened in both sides, which created data inconsistency.
 
-// // const employee2 = { ...employee1 };  // Method 1: Spread Operator
-// const employee2 = Object.assign({}, employee1); // Method 2: Object.assign() method
-// employee2.contact.phone = "2207267809";
-// employee2.id = "RE101";
-// console.log("employee1", employee1);
-// console.log("employee2", employee2);
+// HERE COMES SHALLOW COPY //
 
-const one = {
-  number: 10,
-  payment: [2500, 5600, 2400],
-  visa: false,
-};
+emp2={...emp1} // Shallow copy using spread operator
+emp3=Object.assign({},emp1)
 
-const two = { ...one };
+emp2.age=33;  // now we change the value of age property of emp2
+emp3.name='keerty'
+// console.log("emp2->",emp2); // consoling emp2
+// console.log("emp1->",emp1); // now whats the output in emp1
+// console.log("emp3->",emp3); // consoling emp3
 
-two.number = 15;
-two.payment.shift();
-console.log(one);
-console.log(two);
+// HERE COMES DEEP COPY
+emp3.address.pincode=800211;
+// console.log("emp1-->",emp1);
+// console.log("emp3-->",emp3);
+// console.log("emp2-->",emp2);
+
+let emp5=JSON.parse(JSON.stringify(emp3)); // DC using JSON PARSE AND STRINGIFY
+emp5.address.houseName='PPPP';
+console.log("emp3-->",emp3);
+console.log("emp5-->",emp5);
+
+
+
+
+
+
+
