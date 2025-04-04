@@ -13,13 +13,18 @@
 
 // Program to find a string is palindrome or not using recursion //
 
-const str = 'dad';
+const str = 'daad';
 
 const checkPalindrome=(str,left,right)=>{
-  while(left<=right){
-    console.log('left->', left, 'right->',right)
+
+  if(str[left]!=str[right]){
+    return false;
   }
-  return checkPalindrome(str,left+2,right-2);
+  if(left>=right){
+    return true;
+  }
+  
+  return checkPalindrome(str,left+1,right-1);
 }
 
 console.log(checkPalindrome(str,0,str.length-1));
